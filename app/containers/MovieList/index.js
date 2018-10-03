@@ -9,54 +9,81 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import MovieCard from 'components/MovieCard';
+import MultivalueRefiner from 'components/MultivalueRefiner';
+import RatingRefiner from 'components/RatingRefiner';
+import Grid from 'components/Grid';
+import Cell from 'components/Cell';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectMovieList from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import * as actions from './actions';
-import MovieCard from 'components/MovieCard';
-import MultivalueRefiner  from 'components/MultivalueRefiner';
 
 /* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/prop-types */
 export class MovieList extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.filterGenre = this.filterGenre.bind(this);
+    this.changeRating = this.changeRating.bind(this);
   }
-  componentDidMount(){
-    let {fetchMovies} = this.props;
+  componentDidMount() {
+    const { fetchMovies } = this.props;
 
     fetchMovies();
   }
 
-  filterGenre(event){
-    let {filterGenre} = this.props;
-    const target = event.target;
-    const checked = target.checked;
-    const name = target.name;
+  filterGenre(event) {
+    const { filterGenre } = this.props;
+    const { target } = event;
+    const { checked } = target;
+    const { name } = target;
 
     filterGenre({
       name,
-      checked
-    })
+      checked,
+    });
+  }
+
+  changeRating(rating) {
+    const { filterRating } = this.props;
+    filterRating(rating);
   }
 
   render() {
-    let { movielist } = this.props;
+    const { movielist } = this.props;
+
     return (
       <div>
         <Helmet>
-          <title>MovieList</title>
-          <meta name="description" content="Description of MovieList" />
+          <title>Mov.io - Trending now</title>
+          <meta name="description" content="Trending movies database" />
         </Helmet>
-        <MultivalueRefiner label="Genres" values={movielist.genres} property="genres" type="array" onValueClicked={this.filterGenre} />
-        {/* <Filter label="Genres" values={movielist.genres} property="vote_average" type="number" /> */}
-
-        {movielist.filteredResults.map((movie)=>{
-          return <MovieCard key={movie.id} {...movie}/>
-        })}
+        <Grid>
+          <Cell columnStart={1} columnEnd={2}>
+            <MultivalueRefiner
+              label="Genres"
+              values={movielist.genres}
+              property="genres"
+              type="array"
+              onValueClicked={this.filterGenre}
+            />
+            <RatingRefiner
+              label="Rating"
+              value={movielist.filter.facets.vote_average.value}
+              property="vote_average"
+              type="array"
+              onValueClicked={this.changeRating}
+            />
+          </Cell>
+          <Cell columnStart={2} columnEnd={4}>
+            {movielist.filteredResults.map(movie => (
+              <MovieCard key={movie.id} {...movie} />
+            ))}
+          </Cell>
+        </Grid>
       </div>
     );
   }
@@ -68,8 +95,15 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchMovies: (filter) => { dispatch(actions.fetchMovies(filter)) },
-    filterGenre: (genre) =>{ dispatch(actions.filterGenre(genre)) }
+    fetchMovies: filter => {
+      dispatch(actions.fetchMovies(filter));
+    },
+    filterGenre: genre => {
+      dispatch(actions.filterGenre(genre));
+    },
+    filterRating: rating => {
+      dispatch(actions.filterRating(rating));
+    },
   };
 }
 

@@ -3,74 +3,72 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import * as constants from './constants';
 // import { take, call, put, select } from 'redux-saga/effects';
 
-export default function* root(){
+export default function* root() {
   yield takeLatest(constants.FETCH_MOVIES, fetchMovies);
-  yield takeLatest(constants.FILTER_GENRE, filterGenre);
+  yield takeLatest(constants.FILTER_GENRE, applyFilter);
+  yield takeLatest(constants.FILTER_RATING, applyFilter);
 }
 
-function getMovies(){
+function getMovies() {
   return axios({
-    method: "get",
-    url: "https://api.themoviedb.org/3/movie/now_playing?api_key=cfe422613b250f702980a3bbf9e90716&language=en-US&page=1"
+    method: 'get',
+    url:
+      'https://api.themoviedb.org/3/movie/now_playing?api_key=cfe422613b250f702980a3bbf9e90716&language=en-US&page=1',
   });
 }
 
-function getGenders(){
+function getGenders() {
   return axios({
-    method:"get",
-    url: "https://api.themoviedb.org/3/genre/movie/list?api_key=cfe422613b250f702980a3bbf9e90716&language=en-US"
+    method: 'get',
+    url:
+      'https://api.themoviedb.org/3/genre/movie/list?api_key=cfe422613b250f702980a3bbf9e90716&language=en-US',
   });
 }
 
-export function* filterGenre(){
+export function* applyFilter() {
   yield put({
-    type: constants.APPLY_FILTER
+    type: constants.APPLY_FILTER,
   });
 }
 
-export function* fetchMovies(action){
+export function* fetchMovies() {
   try {
-
     const moviesResponse = yield call(getMovies);
     let movies = moviesResponse.data;
     movies = movies.results || [];
     const gendersResponse = yield call(getGenders);
-    let genres = gendersResponse.data.genres;
-    genres = genres.map((g)=>{
-      return {
-        ...g,
-        checked: false
-      }
-    });
-    //Resolve genres for each moview
-    movies = movies.map((movie)=>{
-      let movieGenres = [];
-      for(let i = 0; i < movie.genre_ids.length; i++){
-        movieGenres.push(genres.filter((g)=> g.id === movie.genre_ids[i])[0].name);
+    let { genres } = gendersResponse.data;
+    genres = genres.map(g => ({
+      ...g,
+      checked: false,
+    }));
+    // Resolve genres for each moview
+    movies = movies.map(movie => {
+      const movieGenres = [];
+      for (let i = 0; i < movie.genre_ids.length; i += 1) {
+        movieGenres.push(
+          genres.filter(g => g.id === movie.genre_ids[i])[0].name,
+        );
       }
       return {
         ...movie,
-        genres: movieGenres
-      }
-    })
-
-
+        genres: movieGenres,
+      };
+    });
 
     yield put({
       type: constants.FETCH_MOVIES_SUCCESS,
       movies,
-      genres
+      genres,
     });
 
     yield put({
-      type: constants.APPLY_FILTER
+      type: constants.APPLY_FILTER,
     });
-  }
-  catch(error){
+  } catch (error) {
     yield put({
       type: constants.FETCH_MOVIES_FAILURE,
-      error
-    })
+      error,
+    });
   }
-
 }

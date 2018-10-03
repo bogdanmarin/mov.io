@@ -144,6 +144,7 @@
     ]
   },
   "dependencies": {
+    "@prontopro/react-rating": "^0.2.0",
     "axios": "^0.18.0",
     "babel-polyfill": "6.26.0",
     "chalk": "^2.4.1",
