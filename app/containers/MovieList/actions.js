@@ -4,10 +4,25 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { FETCH_MOVIES, APPLY_FILTER, FILTER_GENRE } from './constants';
 
-export function defaultAction() {
+export function fetchMovies(filter) {
   return {
-    type: DEFAULT_ACTION,
+    type: FETCH_MOVIES,
+    filter
   };
+}
+
+export function applyFilter(filter) {
+  return {
+    type: APPLY_FILTER,
+    filter
+  };
+}
+
+export function filterGenre(genre){
+  return {
+    type: FILTER_GENRE,
+    genre
+  }
 }

@@ -5,16 +5,29 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 /* eslint-disable react/prefer-stateless-function */
 class MovieCard extends React.Component {
   render() {
-    return <div />;
+    const { title, overview, poster_path, genres, vote_average } = this.props;
+
+    return <div>
+      <h1>{title}({vote_average})</h1>
+      <p>{overview}</p>
+      <img src={`https://image.tmdb.org/t/p/w500${poster_path}`}></img>
+      <p>Genres: {`${genres.join(" ")}`}</p>
+    </div>
   }
 }
 
-MovieCard.propTypes = {};
+MovieCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  poster_path: PropTypes.string.isRequired,
+  genres: PropTypes.array.isRequired,
+  vote_average: PropTypes.number.isRequired
+};
 
 export default MovieCard;
