@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 class MultivalueRefiner extends React.Component {
   render() {
     const { label, values, onValueClicked } = this.props;
+    debugger;
     return (<div>
         <h2>{label}</h2>
         {values.map((v) => {

@@ -99,7 +99,7 @@ function movieListReducer(state = initialState, action) {
       //   genreFilter.get('values').delete(action.genre.name);
       // }
       if (action.genre.checked){
-        return state.updateIn(['filter', 'facets', 'genres', 'values'], list=> list.push(action.genre.name));
+        return state.updateIn(['filter', 'facets', 'genres', 'values'], list=> list.delete(action.genre.name).push(action.genre.name));
       }else{
         return state.updateIn(['filter', 'facets', 'genres', 'values'], list=>list.delete(action.genre.name));
       }

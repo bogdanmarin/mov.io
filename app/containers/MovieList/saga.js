@@ -5,6 +5,7 @@ import * as constants from './constants';
 
 export default function* root(){
   yield takeLatest(constants.FETCH_MOVIES, fetchMovies);
+  yield takeLatest(constants.FILTER_GENRE, filterGenre);
 }
 
 function getMovies(){
@@ -18,6 +19,12 @@ function getGenders(){
   return axios({
     method:"get",
     url: "https://api.themoviedb.org/3/genre/movie/list?api_key=cfe422613b250f702980a3bbf9e90716&language=en-US"
+  });
+}
+
+export function* filterGenre(){
+  yield put({
+    type: constants.APPLY_FILTER
   });
 }
 
@@ -56,8 +63,7 @@ export function* fetchMovies(action){
     });
 
     yield put({
-      type: constants.APPLY_FILTER,
-      filter: action.filter
+      type: constants.APPLY_FILTER
     });
   }
   catch(error){
