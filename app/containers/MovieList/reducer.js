@@ -89,7 +89,7 @@ function movieListReducer(state = initialState, action) {
 
     case constants.FILTER_RATING: {
       return state.updateIn(
-        ['filter', 'facets', 'vote_average', 'value'], v => v - v+ action.rating,
+        ['filter', 'facets', 'vote_average', 'value'], v => v - v + action.rating,
       );
     }
 
