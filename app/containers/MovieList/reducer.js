@@ -78,11 +78,16 @@ function movieListReducer(state = initialState, action) {
       const indexOfListToUpdate = state.get('genres').findIndex(g => g.name === action.genre.name);
       const indexToDelete = state
         .getIn(['filter', 'facets', 'genres', 'values'])
-        .findIndex(v => v.name === action.name);
-      if (action.genre.checked) {
-        return state
+        .findIndex(v => v === action.genre.name);
+
+        if (action.genre.checked) {
+
+        return indexToDelete !== -1 ? state
           .updateIn(['filter', 'facets', 'genres', 'values'], list => list.delete(indexToDelete)
             .push(action.genre.name))
+          .updateIn(['genres', indexOfListToUpdate ], o => ({...o, checked: true}) ):
+          state
+          .updateIn(['filter', 'facets', 'genres', 'values'], list => list.push(action.genre.name))
           .updateIn(['genres', indexOfListToUpdate ], o => ({...o, checked: true}) )
       }
 
