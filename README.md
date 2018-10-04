@@ -1,4 +1,4 @@
-#Mov.io - TMDB Project Using React, Redux, Saga, Reselect and many more
+# Mov.io - TMDB Project Using React, Redux, Saga, Reselect and many more
 
 ![mov.io](https://raw.githubusercontent.com/bogdanmarin/mov.io/master/Screen%20Shot%202018-10-04%20at%2021.36.25.png)
 
