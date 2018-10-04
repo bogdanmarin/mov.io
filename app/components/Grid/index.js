@@ -3,16 +3,36 @@
  * Grid
  *
  */
+import styled, { injectGlobal } from 'styled-components';
 
-import styled from 'styled-components';
+injectGlobal`
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  body {
+    background-color: #210038;
+  }
+`;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: auto auto auto;
   grid-gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  max-width: ${props => props.maxWidth || '100%'};
+  color: #ffff;
+  & > div {
+    padding: 15px 15px;
+  }
+  @media (max-width: 900px) {
+    zoom: 0.9;
+  }
+`;
 
-  > div {
-    padding: 20px 0;
+export const GridResponsive = styled.div`
+  ${Grid}{
+    @media (max-width: 900px) {
+      display: inline-block;
+      max-width: 100%
+    }
   }
 `;
 

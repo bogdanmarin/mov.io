@@ -15,7 +15,7 @@ class RatingRefiner extends React.Component {
     const { label, value } = this.props;
     return (
       <div>
-        {label}
+        <h2>{label}</h2>
         <Rating
           animateOnHover
           initialRate={value}

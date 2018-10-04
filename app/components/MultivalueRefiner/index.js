@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Checkbox from 'components/Checkbox';
 /* eslint-disable react/prefer-stateless-function */
 class MultivalueRefiner extends React.Component {
   render() {
@@ -16,15 +16,12 @@ class MultivalueRefiner extends React.Component {
       <div>
         <h2>{label}</h2>
         {values.map(v => (
-          <label htmlFor={v.name} key={v.id}>
-            <input
-              name={v.name}
+             <Checkbox
+              key={v.name}
+              label={v.name}
               checked={v.checked}
               onChange={onValueClicked}
-              type="checkbox"
             />
-            {v.name}
-          </label>
         ))}
       </div>
     );

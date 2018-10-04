@@ -9,6 +9,7 @@ import { fromJS, List } from 'immutable';
 import * as constants from './constants';
 
 export const initialState = fromJS({
+  fetching: true,
   results: [],
   filter: {
     facets: {
@@ -43,9 +44,11 @@ function movieListReducer(state = initialState, action) {
       return state
         .set('results', List(action.movies))
         .set('filteredResults', List(action.movies))
-        .set('genres', List(action.genres));
+        .set('genres', List(action.genres))
+        .set('fetching', false);
     case constants.FETCH_MOVIES_FAILURE:
-      return state.set('results', []);
+      return state.set('results', [])
+        .set('fetching', false);
     case constants.APPLY_FILTER: {
       const filter = state.get('filter');
 

@@ -19,9 +19,6 @@ export default class HomePage extends React.PureComponent {
     return (
       <Grid>
         <Cell columnStart={1} columnEnd={4}>
-          <h4>Trending movies</h4>
-        </Cell>
-        <Cell columnStart={1} columnEnd={4}>
           <MovieList />
         </Cell>
       </Grid>
