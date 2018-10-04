@@ -56,7 +56,7 @@ function movieListReducer(state = initialState, action) {
       const sortProperty = filter.get('sort').get('property');
       state.set(
         'results',
-        state.get('results').sort((a, b) => sortOp === "desc"? b.get[sortProperty] - a[sortProperty]: a[sortProperty] - b[sortProperty]),
+        state.get('results').sort((a, b) => sortOp === "desc"? b.[sortProperty] - a[sortProperty]: a[sortProperty] - b[sortProperty]),
       );
 
       const facets = filter.get('facets');
