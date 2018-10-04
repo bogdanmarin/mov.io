@@ -62,11 +62,6 @@ export class MovieList extends React.Component {
           <meta name="description" content="Trending movies database" />
         </Helmet>
         <Grid>
-          {!movielist.fetching && movielist.filteredResults.length === 0 &&
-            <Cell columnStart={2} columnEnd={3}>
-              <h2>Nothing released recently</h2>
-            </Cell>
-          }
           {movielist.fetching &&
             <Cell columnStart={2} columnEnd={3}>
               <h2>Loading...</h2>
@@ -96,6 +91,11 @@ export class MovieList extends React.Component {
             {movielist.filteredResults.map(movie => (
               <MovieCard key={movie.id} {...movie} />
             ))}
+            {!movielist.fetching && movielist.filteredResults.length === 0 &&
+            <Cell columnStart={2} columnEnd={3}>
+              <h2>Nothing released recently</h2>
+            </Cell>
+            }
           </Cell>
         </Grid>
       </div>
