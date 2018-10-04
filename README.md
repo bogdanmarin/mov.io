@@ -29,5 +29,5 @@ Now you're ready to rumble!
 - [**Troubleshooting**](docs/general/gotchas.md): Solutions to common problems faced by developers.
 ## License
 
-This project is licensed under the MIT license, Copyright (c) 2018 Maximilian
-Stoiber. For more information see `LICENSE.md`.
+This project is licensed under the MIT license, Copyright (c) 2018 Bogdan Marin.
+For more information see `LICENSE.md`.
