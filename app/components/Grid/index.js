@@ -5,13 +5,6 @@
  */
 import styled, { injectGlobal } from 'styled-components';
 
-injectGlobal`
-  @import url('https://fonts.googleapis.com/css?family=Montserrat');
-  body {
-    background-color: #210038;
-  }
-`;
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
