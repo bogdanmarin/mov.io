@@ -3,7 +3,7 @@
  * Grid
  *
  */
-import styled, { injectGlobal } from 'styled-components';
+import styled from 'styled-components';
 
 const Grid = styled.div`
   display: grid;
@@ -21,10 +21,10 @@ const Grid = styled.div`
 `;
 
 export const GridResponsive = styled.div`
-  ${Grid}{
+  ${Grid} {
     @media (max-width: 900px) {
       display: inline-block;
-      max-width: 100%
+      max-width: 100%;
     }
   }
 `;
