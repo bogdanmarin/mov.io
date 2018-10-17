@@ -2,7 +2,7 @@
 
 ![mov.io](https://raw.githubusercontent.com/bogdanmarin/mov.io/master/Screen%20Shot%202018-10-04%20at%2021.36.25.png)
 
-Initally Cloned from https://github.com/react-boilerplate/react-boilerplate.git
+Initially Cloned from https://github.com/react-boilerplate/react-boilerplate.git
 Kudos to react-boilerplate team!
 
 ## Quick start
